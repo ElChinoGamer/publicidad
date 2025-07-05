@@ -1,0 +1,235 @@
+<!DOCTYPE html> <!-- Documento HTML5 -->
+<html lang="es"> <!-- Lenguaje del contenido -->
+<head>
+  <meta charset="UTF-8"> <!-- Codificación UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Escalado responsivo -->
+  <title>Filosofía Ludens - Blog Filosófico-Gamer</title> <!-- Título de la página -->
+
+  <!-- Tailwind CSS desde CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos personalizados -->
+  <style>
+    /* Importación de fuentes retro y modernas */
+    @import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Press+Start+2P&display=swap');
+       .spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  pointer-events: none;
+  opacity: 0.8;
+  animation: spark-fade 0.5s ease-out forwards;
+}
+
+@keyframes spark-fade {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+    /* Paleta de colores centralizada */
+    :root {
+      --primary: #000;
+      --secondary: #0ff;
+      --dark: #2D3748;
+      --light: #2D3748;
+    }
+
+    /* Estilo general del cuerpo */
+    body {
+      font-family: 'Philosopher', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* Fuente retro gamer */
+    .gamer-font {
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    /* Fondo degradado tipo héroe */
+    .hero-bg {
+      background: linear-gradient(135deg, var(--primary) 40%, var(--secondary) 200%);
+    }
+
+    /* Cursor parpadeante estilo máquina de escribir */
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Botón neón retro gamer (responsive y accesible) */
+    .neon-button {
+      position: relative;
+      display: inline-block;
+      padding: 15px 30px;
+      color: var(--secondary);
+      font-family: 'Press Start 2P', cursive;
+      font-size: 20px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      overflow: hidden;
+      cursor: pointer;
+      transition: color 0.3s, background 0.3s, box-shadow 0.3s;
+      touch-action: manipulation; /* Mejor rendimiento en móvil */
+    }
+
+    /* Efecto visual para hover, focus y tap */
+    .neon-button:hover,
+    .neon-button:active,
+    .neon-button:focus-visible {
+      color: #fff;
+      background: var(--secondary);
+      box-shadow: 0 0 10px var(--secondary), 0 0 40px var(--secondary), 0 0 80px var(--secondary);
+      transition-delay: 0.2s;
+    }
+
+    .neon-button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px #0ff8;
+    }
+
+    /* Líneas animadas neón */
+    .neon-button span {
+      position: absolute;
+      display: block;
+    }
+
+    .neon-button span:nth-child(1) {
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--secondary));
+    }
+
+    .neon-button:hover span:nth-child(1) {
+      left: 100%;
+      transition: 0.5s;
+    }
+
+    .neon-button span:nth-child(2) {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, var(--secondary));
+    }
+
+    .neon-button:hover span:nth-child(2) {
+      top: 100%;
+      transition: 0.5s;
+      transition-delay: 0.15s;
+    }
+
+    .neon-button span:nth-child(3) {
+      bottom: 0;
+      right: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg, transparent, var(--secondary));
+    }
+
+    .neon-button:hover span:nth-child(3) {
+      right: 100%;
+      transition: 0.5s;
+      transition-delay: 0.3s;
+    }
+
+    .neon-button span:nth-child(4) {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(360deg, transparent, var(--secondary));
+    }
+
+    .neon-button:hover span:nth-child(4) {
+      bottom: 100%;
+      transition: 0.5s;
+      transition-delay: 0.45s;
+    }
+  </style>
+</head>
+<script>
+  // Crear chispas en la posición del cursor o del dedo
+  function createSpark(x, y) {
+    const spark = document.createElement('div');
+    spark.classList.add('spark');
+    spark.style.left = `${x}px`;
+    spark.style.top = `${y}px`;
+    document.body.appendChild(spark);
+
+    setTimeout(() => {
+      spark.remove();
+    }, 500);
+  }
+
+  // Detectar movimiento del cursor
+  document.addEventListener('mousemove', (e) => {
+    createSpark(e.clientX, e.clientY);
+  });
+
+  // Detectar toques en pantalla
+  document.addEventListener('touchstart', (e) => {
+    for (let touch of e.touches) {
+      createSpark(touch.clientX, touch.clientY);
+    }
+  });
+</script>
+
+<body>
+  <!-- Sección central con fondo gamer -->
+  <section class="hero-bg min-h-screen flex items-center justify-center">
+    <div class="text-center px-4">
+      <!-- Título con efecto máquina de escribir -->
+      <h1 class="gamer-font text-4xl md:text-6xl text-white" id="typing-title"></h1>
+
+      <!-- Botón retro -->
+      <div class="mt-10">
+        <a href="https://tu-blog-url.com" class="neon-button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Visita mi Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script de máquina de escribir -->
+  <script>
+    const titleText = "Más Allá Del Mando"; // Texto a escribir
+    const titleElement = document.getElementById('typing-title');
+    let index = 0;
+
+    function typeWriter() {
+      if (index < titleText.length) {
+        titleElement.innerHTML += titleText.charAt(index);
+        index++;
+        setTimeout(typeWriter, 150);
+      } else {
+        titleElement.classList.add('typing-cursor');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', typeWriter);
+  </script>
+</body>
+</html>
